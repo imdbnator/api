@@ -47,7 +47,7 @@ function populateEntries (oldEntries, sources, done) {
       Promise.map(sources, (source, i) => {
         return new Promise((mapperResolve, mapperReject) => {
           const fieldMap = config.collections[source].fields
-          db.collection(source)
+          db.collection(config.collections[source].name)
           .find({[fieldMap.imdbid]: {$in: Object.keys(imdb2entry)}})
           .toArray()
           .then((docs) => {

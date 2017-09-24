@@ -6,6 +6,7 @@
   "password": "Pass@1234",
   "collections": {
     "tmdb": {
+      "name": "tmdb_movies",
       "fields": {
         "tmdbid": "id",
         "imdbid": "imdb_id",
@@ -40,6 +41,7 @@
       }
     },
     "imdb": {
+      "name": "imdb_movies",
       "fields": {
         "rating": "imdbRating",
         "released ": "Released",

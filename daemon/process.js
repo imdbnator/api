@@ -5,6 +5,7 @@ const Promise = require('bluebird');
 const isEmpty = require('lodash.isempty')
 const isNumber = require('lodash.isnumber')
 const moment = require('moment');
+const port = process.env.PORT || 8081
 
 // My modules
 const ElasticSearch = require('../libs/ElasticSearch')
@@ -23,7 +24,7 @@ function processDaemon (server) {
     // Get collectiom inputs
     socket.on('start', ({id, processAll}) => {
       axios({
-        url: `http://localhost:8081/collection/${id}`,
+        url: `http://localhost:${port}/collection/${id}`,
         method: 'get'
       })
       .then((response) => {

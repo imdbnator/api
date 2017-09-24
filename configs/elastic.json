@@ -1,0 +1,66 @@
+{
+  "host": "locahost",
+  "port": "9200",
+  "user": "root",
+  "password": "Pass@1234",
+  "indices": {
+    "imdb": {
+      "types": {
+        "movie": {
+          "fields": {
+            "imdbid": "imdbID",
+            "title": "Title",
+            "title_original": "Title",
+            "year": "Year",
+            "rating": "imdbRating",
+            "votes": "imdbVotes",
+            "metacritic": "Metacritic",
+            "country": "Country",
+            "language": "Language",            
+            "runtime": "Runtime"
+          }
+        }
+      }
+    },
+    "tmdb": {
+      "types": {
+        "movie": {
+          "fields": {
+            "tmdbid": "id",
+            "imdbid": "imdb_id",
+            "title": "title",
+            "title_original": "original_title",
+            "year": "release_date",
+            "rating": "vote_average",
+            "votes": "vote_count",
+            "popularity": "popularity",
+            "language": "original_language",
+            "spoken": "spoken_languages",
+            "runtime": "runtime",
+            "poster": "poster_path",
+            "backdrop": "backdrop_path"
+          }
+        },
+        "tv": {
+          "tmdbid": "id",
+          "title": "name",
+          "title_alternative": "alternative_titles",
+          "title_original": "original_name",
+          "aired_first": "first_air_date",
+          "aired_last": "last_air_date",
+          "rating": "vote_average",
+          "votes": "vote_count",
+          "popularity": "popularity",
+          "episode_runtime": "episode_run_time",
+          "seasons_count": "number_of_seasons",
+          "episodes_count": "number_of_episodes",
+          "language": "original_language",
+          "country": "origin_country",
+          "poster": "poster_path",
+          "backdrop": "backdrop_path",
+          "status": "status"
+        }
+      }
+    }
+  }
+}

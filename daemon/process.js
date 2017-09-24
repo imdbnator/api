@@ -102,7 +102,7 @@ function processDaemon (server) {
         .then(() => {
           socket.emit('processed')
           axios({
-            url: `http://localhost:8081/collection/${id}/entries`,
+            url: `http://localhost:${port}/collection/${id}/entries`,
             method: 'post',
             data: {entries: newEntries}
           })

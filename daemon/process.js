@@ -120,7 +120,7 @@ function processDaemon (server) {
           })
         })
         .catch((err) => {
-          socket.emit('failed', {success: false, message: `Daemon (Promise): Was unable to finish processing queue: ${err.message}`})
+          socket.emit('failed', {success: false, message: `Daemon (Promise): Was unable to finish processing queue: ${err}`})
           socket.disconnect(true)
         })
 

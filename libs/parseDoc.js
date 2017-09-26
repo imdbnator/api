@@ -33,11 +33,11 @@ function parseDoc (source, document) {
     case 'tmdb':
       for (let field in parsedDoc) {
         if (_.isEmpty(parsedDoc[field])) continue
-        
+
         let content = parsedDoc[field]
         switch (field) {
           case 'year':
-            parsedDoc[field] = parseInt(content.match(/(?:19|20)\d{2}/g)[0])
+            parsedDoc[field] = parseInt(content.match(/(?:18|19|20)\d{2}/g)[0])
             break
           case 'language':
             parsedDoc[field] = langISO.getName(content)

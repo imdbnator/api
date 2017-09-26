@@ -142,6 +142,13 @@ const collectionSchema = new Schema({
     index: true,
     unique: true
   },
+  secret: {
+    type: String,
+    minlength: [2, 'Collection Secret cannot be less than 2 characters.'],
+    maxlength: [32, 'Collection Secret cannot be more than 32 characters.'],
+    trim: true,
+    required: [true, 'Collection Secret is required.']
+  },
   hash: {
     type: String,
     minlength: [32, 'Collection hash must have a length of 32.'],

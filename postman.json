@@ -1,0 +1,303 @@
+{
+	"variables": [],
+	"info": {
+		"name": "IMDbnator",
+		"_postman_id": "6669cb01-a98b-31e1-8ad3-f316dcc957f5",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "Collection",
+			"description": "",
+			"item": [
+				{
+					"name": "POST /collection",
+					"request": {
+						"url": "{{api}}/collection",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"sl01\",\n  \"type\": \"pc\",\n  \"inputs\": [\n    {\n      \"name\": \"Batman Begins 2005\",\n      \"hash\": 142\n    },\n    {\n      \"name\": \"Green Lantern 2011\",\n      \"hash\": 232\n    },\n    {\n      \"name\": \"Shawshank Redemption 1994\",\n      \"hash\": 31\n    },\n    {\n      \"name\": \"Hard Candy 2005\",\n      \"hash\": 421\n    },\n    {\n      \"name\": \"Conjuring 2013\",\n      \"hash\": 51\n    },\n    {\n      \"name\": \"The Bridge of River Kawai\",\n      \"hash\": 123\n    }\n  ],\n  \"misc\": {\n    \"url\": \"http://google.com/\"\n  }\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET /collection/:id/inputs",
+					"request": {
+						"url": "{{api}}/collection/{{id}}/inputs",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET /collection",
+					"request": {
+						"url": "{{api}}/collection/{{id}}",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET /collection/:id/populate/movies",
+					"request": {
+						"url": "{{api}}/collection/{{id}}/populate/imdb,tmdb",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET /process/:title",
+					"request": {
+						"url": {
+							"raw": "{{api}}/process/{{title}}?table=imdb&ranking=best",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"process",
+								"{{title}}"
+							],
+							"query": [
+								{
+									"key": "table",
+									"value": "imdb",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "ranking",
+									"value": "best",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /collection/:id/override/:movieid/to/:imdbid",
+					"request": {
+						"url": "{{api}}/collection/{{id}}/override/{{movieid}}/to/{{imdbid}}",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /collection/:id/restore/:movieid",
+					"request": {
+						"url": "{{api}}/collection/{{id}}/restore/{{movieid}}",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /collection/:id/settings",
+					"request": {
+						"url": {
+							"raw": "{{api}}/collection/{{id}}/settings?name=sl01&description=imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"collection",
+								"{{id}}",
+								"settings"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "sl01",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "description",
+									"value": "imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!imdbnator rock!",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "id",
+									"value": "newid",
+									"equals": true,
+									"description": "",
+									"disabled": true
+								}
+							],
+							"variable": []
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /collection/:id/ignore/:movieid",
+					"request": {
+						"url": "{{api}}/collection/{{id}}/ignore/{{movieid}}",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LOCK /collection/:id",
+					"request": {
+						"url": "{{api}}/collection/{{id}}",
+						"method": "LOCK",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UNLOCK /collection/:id",
+					"request": {
+						"url": "{{api}}/collection/{{id}}",
+						"method": "UNLOCK",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /collection/:id",
+					"request": {
+						"url": "{{api}}/collection/{{id}}",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"description": "",
+			"item": [
+				{
+					"name": "GET /process/search",
+					"request": {
+						"url": {
+							"raw": "{{api}}/process/search?input=Nice&index=tmdb&type=movie&mode=match",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"process",
+								"search"
+							],
+							"query": [
+								{
+									"key": "input",
+									"value": "Nice",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "index",
+									"value": "tmdb",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "type",
+									"value": "movie",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "mode",
+									"value": "match",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST /process/webpage/:url",
+					"request": {
+						"url": "{{api}}/process/webpage",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"url\": \"https://rottentomatoes.com/top/bestofrt/?year=2015\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET /process/guess/:title",
+					"request": {
+						"url": "{{api}}/process/guess/foo",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

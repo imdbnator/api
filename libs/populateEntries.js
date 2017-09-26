@@ -3,6 +3,7 @@ Bugs:
   - Using a hacky way of cloing object since cloneDeep or Object.assign doesnt seem to work when calling the function from the API route.
   - Need to make sure to populate all entries. Or else some fields are missing on the client. Which is bad. The client should receive all the details from the server
   - To make sure entriesare populated in source order with some good logical constraints.
+  - The collections migrated from old server seem to put all movies under duplicates of 1 title.
  */
 
 const MongoClient = require('mongodb').MongoClient
@@ -60,22 +61,6 @@ function populateEntries (oldEntries, sources, done) {
                 let info = entries[entryids[j]]['info'] // (CRITICAL): Using the fact that entryid is the same as its index in array. Can be breaking.
                 info = Object.assign(info, newDoc)
                 info['_sources'].push(source)
-
-                // (CRITICAL): This ordering only supports 2 source: which is imdb and tmdb.
-                // Maintain order imdb info should not be overlapped by tmdb unless that imdb info does not exist.
-                // if (_.isEmpty(info[_sources])){
-                //   info = newDoc
-                //   info['_sources'] = [source]
-                //   continue
-                // }
-                //
-                // if (_.includes(info['_source'], 'imdb')){
-                //   for (let field in newDoc) {
-                //     if (!_.isEmpty(info[field])) continue
-                //     info[field] = newDoc[field]
-                //   }
-                // }
-
               }
             }
             mapperResolve()

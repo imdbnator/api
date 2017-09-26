@@ -20,6 +20,9 @@ const compression = require('compression');
 const api = express()
 const port = process.env.PORT || 8081
 
+// Increase max event listeners.
+process.setMaxListeners(30)
+
 // Global Middleware
 api.use(compression({level: 9}))
 

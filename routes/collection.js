@@ -1,5 +1,5 @@
 /*
-Bugs
+(BREAKING) Bugs
   - findOneAndUpdate is not respecting the schema when usng child document search. For instance, in the settings route,I can have a description with an extremely large string and it saving it in the DB.
   - Even findOneAndUpdate on UNLOCK route doesnt work. If I set settings.private as "foo" even though the Schema says it boolean, IT UPDATES!!
   - Return the previous id if the user has not provded a new id for an existing hash.
@@ -48,7 +48,8 @@ router.post('/', (req, res) => {
   titles.sort()
 
   let collection = new Collection({
-    id: (req.body.id) ? req.body.id : shortid.generate(),
+    id: shortid.generate(),
+    secret: shortid.generate(),
     hash: md5(titles),
     type: req.body.type,
     entries: inputs.map((input, i) => {
@@ -108,17 +109,23 @@ router.get('/:id/inputs', (req, res) => {
   })
 })
 router.get('/:id/populate/:sources', (req, res) => {
+  if (_.isEmpty(req.params.sources)) {
+    return res.send({success: false, message: 'Invalid sources.', status: 160})
+  }
+
   return Collection.findOne({id: req.params.id}, (err, row) => {
     req.db.close()
     if (err) {
-      return res.send({success: false, message: err.message})
+      return res.send({success: false, message: err.message, status: 160})
     }
     if (_.isEmpty(row)) {
-      return res.send({success: false, message: 'Collection ID does not exist.'})
+      return res.send({success: false, message: 'Collection ID does not exist.', status: 170})
     }
-    if (_.isEmpty(req.params.sources)) {
-      return res.send({success: false, message: 'Invalid sources.'})
+
+    if (!row.processed){
+      return res.send({success: false, message: "Collection hasn't been processed yet.", status: 171})
     }
+
 
     const collection = row
     const entries = collection.entries
@@ -128,7 +135,7 @@ router.get('/:id/populate/:sources', (req, res) => {
       newCollection['entries'] = newEntries
       res.send({success: true, collection: newCollection})
     })
-    .catch(err => res.send({success: false, message: err.message}))
+    .catch(err => res.send({success: false, message: err.message, status: 160}))
   })
 })
 
@@ -197,10 +204,11 @@ router.put('/:id/restore/:movieid', (req, res) => {
   })
 })
 router.put('/:id/settings', (req, res) => {
-  let updateFields = {}``
+  let updateFields = {}
   if (req.query.id) updateFields['id'] = req.query.id
-  if (req.query.name) updateFields['settings.name'] = req.query.name
-  if (req.query.description) updateFields['settings.description'] = req.query.description
+  if (req.query.secret) updateFields['secret'] = req.query.secret
+  if (typeof req.query.name !== "undefined") updateFields['settings.name'] = req.query.name
+  if (typeof req.query.description !== "undefined") updateFields['settings.description'] = req.query.description
   if (req.query.private) updateFields['settings.private'] = req.query.private
 
   if (_.isEmpty(updateFields)) return res.send({success: false, message: 'Collection setting\'s cannot be empty.'})

@@ -26,10 +26,9 @@ function populateEntries (oldEntries, sources, done) {
   const imdb2entry = {}
   for (let i = 0; i < entries.length; i++) {
     const { modified, search, ignore } = entries[i]
-    if (!search.found) continue
-    if (!search.result.imdbid) continue
+    if (!search.found && !modified) continue
     if (ignore) continue
-
+    
     const imdbid = (modified) ? modified : search.result.imdbid
 
     if (imdbid in imdb2entry) imdb2entry[imdbid].push(i)

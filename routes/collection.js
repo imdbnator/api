@@ -17,6 +17,7 @@ const bodyParser = require('body-parser')
 const shortid = require('shortid')
 const md5 = require('md5')
 const _ = require('lodash')
+const moment = require('moment');
 
 // My modules
 const populateEntries = require('../libs/populateEntries')
@@ -84,6 +85,25 @@ router.post('/:id/entries', (req, res) => {
 })
 
 // Define GET routes
+router.get('/', (req, res) => {
+  if (_.isNaN(parseInt(req.query.date))) return res.send({success: false, message: 'Invalid date.'})
+
+  const start = moment().subtract(parseInt(req.query.date), 'days').startOf('day'); // set to 12:00 am today
+  const end = moment().subtract(parseInt(req.query.date), 'days').endOf('day'); // set to 23:59 pm today
+
+  return Collection.find({created: {$gte: start, $lt: end}}, (err, docs) => {
+    req.db.close()
+    if (err) {
+      return res.send({success: false, message: err.message})
+    }
+    let collections = docs.length
+    let movies = 0
+
+    for (var i = 0; i < docs.length; i++) movies += docs[i].entries.length
+
+    return res.send({success: true, stats: {collections, movies}})
+  })
+})
 router.get('/:id', (req, res) => {
   return Collection.findOne({id: req.params.id}, (err, row) => {
     req.db.close()

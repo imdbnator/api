@@ -88,7 +88,7 @@ const entrySchema = new Schema({
         validate: {
           isAsync: true,
           validator: function (value) {
-            return /\d{7}/.test(value) || value === null
+            return /\d{1,7}/.test(value) || value === null
           },
           message: "'{VALUE}' is not a valid TMDb ID for result."
         },

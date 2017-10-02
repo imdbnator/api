@@ -13,7 +13,7 @@ function parseDoc (source, document) {
   const fieldMap = config.collections[source].fields
   const incFields = {
     tmdb: ['tmdbid', 'imdbid', 'title', 'title_original', 'year', 'tagline', 'rating', 'votes', 'popularity', 'plot', 'language', 'genres', 'credits', 'runtime', 'keywords', 'poster', 'backdrop', 'trailers', 'budget', 'revenue', 'collection', 'homepage', 'adult'],
-    imdb: ['imdbid', 'title', 'rating', 'votes', 'plot', 'genres', 'runtime', 'awards']
+    imdb: ['imdbid', 'title', 'rating', 'votes', 'genres', 'runtime', 'awards']
     // rudb: ['rudbid', 'imdbid', 'title']
   }
 
@@ -71,6 +71,12 @@ function parseDoc (source, document) {
       for (var field in parsedDoc) {
         let content = parsedDoc[field]
         switch (field) {
+          case 'votes':
+            parsedDoc[field] = (typeof content === 'string') ? parseInt(content.replace(/\,/g, '')) : content
+            break;
+          case 'rating':
+            parsedDoc[field] = (typeof content === 'string') ? parseFloat(content) : content
+            break
           case 'cast':
             parsedDoc['cast'] = content.split(', ').map((name) => { return {tmdbid: null, name, gender: null, job: 'Cast', poster: null} })
             break
@@ -87,7 +93,7 @@ function parseDoc (source, document) {
             parsedDoc[field] = content.split(', ')
             break
           case 'runtime':
-            parsedDoc[field] = parseInt(content.split(' min')[0])
+            parsedDoc[field] = (typeof content === 'string') ? parseInt(content.split(' min')[0]) : content
             break
           default:
         }

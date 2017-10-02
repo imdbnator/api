@@ -173,15 +173,40 @@ router.put('/:id/inputs', (req,res) => {
   })
 })
 router.put('/:id/override/:entryid/to/:imdbid', (req, res) => {
-  if (_.isEmpty(req.params.entryid)) return res.send({success: false, message: 'Empty Entry ID provided.'})
+  if (_.isEmpty(req.params.id)) return res.send({success: false, message: 'Empty Collecton ID provided.'})
+  if (_.isNaN(parseInt(req.params.entryid))) return res.send({success: false, message: 'Invalid Entry ID provided.'})
   if (_.isEmpty(req.params.imdbid)) return res.send({success: false, message: 'Empty IMDb ID provided.'})
+  if (!(/tt\d{7}/.test(req.params.imdbid))) return res.send({success: false, message: 'Invalid IMDb ID provided.'})
 
-  return Collection.findOneAndUpdate({id: req.params.id, 'entries.entryid': req.params.entryid}, {'$set': {'entries.$.modified': req.params.imdbid}}, (err, rows) => {
-    req.db.close()
+  return Collection.findOne({id: req.params.id}, (err, row) => {
     if (err) {
+      req.db.close()
       return res.send({success: false, message: err.message})
     }
-    return res.send({success: true, message: `Overrided movie at ${req.params.entryid} to ${req.params.imdbid}.`})
+    if (_.isEmpty(row)) {
+      return res.send({success: false, message: 'Collection ID does not exist.'})
+    }
+
+    const entries = row.entries
+    const index = _.findIndex(entries, function(o) { return o.entryid === parseInt(req.params.entryid) })
+
+    if (index === -1){
+      req.db.close()
+      return res.send({success: false, message: `Entry ID ${req.params.entryid} does not exist in collection.`})
+    }
+    if (req.params.imdbid === entries[index].search.result.imdbid){
+      entries[index].modified = false
+    } else {
+      entries[index].modified = req.params.imdbid
+    }
+
+    return row.save((err) => {
+      req.db.close()
+      if (err) {
+        return res.send({success: false, message: err.message})
+      }
+      return res.send({success: true, message: `Overrided movie at ${req.params.entryid} to ${req.params.imdbid}.`})
+    })
   })
 })
 router.put('/:id/ignore/:movieid', (req, res) => {
@@ -222,6 +247,34 @@ router.put('/:id/settings', (req, res) => {
       return res.send({success: false, message: 'Collection ID was not found.'})
     }
     return res.send({success: true, message: "Collection's settings have been updated."})
+  })
+})
+
+// Define PURGE routes
+router.purge('/:id', (req,res) => {
+  if (_.isEmpty(req.params.id)) return res.send({success: false, message: 'Empty Collection ID provided'})
+
+  Collection.findOne({id: req.params.id}, (err,row) => {
+    if (err){
+      req.db.close()
+      return res.send({success: false, message: err.message})
+    }
+    if (_.isEmpty(row)) {
+      return res.send({success: false, message: 'Collection ID does not exist.'})
+    }
+    const entries = row.entries
+    for (var i = 0; i < entries.length; i++) {
+      const entry = entries[i]
+      entry.modified = false
+      entry.ignore = false
+    }
+    return row.save((err) => {
+      req.db.close()
+      if (err) {
+        return res.send({success: false, message: err.message})
+      }
+      return res.send({success: true, message: 'Purged changes.'})
+    })
   })
 })
 

@@ -18,7 +18,7 @@ Todo:
 const express = require('express')
 const compression = require('compression');
 const api = express()
-const port = process.env.PORT || 8081
+const port = process.env.PORT || 80
 
 // Increase max event listeners.
 process.setMaxListeners(30)

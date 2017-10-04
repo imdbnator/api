@@ -1,4 +1,4 @@
-const remote = process.env.REMOTE || 'http://www.imdbnator.com'
+const remote = process.env.REMOTE || '*'
 
 function cors (req, res, next) {
   res.header('Access-Control-Allow-Origin', remote)

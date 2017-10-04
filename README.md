@@ -77,3 +77,4 @@ db.tmdb.find({}, {id:1}).sort({_id:1}).forEach(function(doc){
 
 - Why is `JSON.parse(JSON.stringify())` only working for cloning but not `_.cloneDeep()` or `Object.assign({},)` in populateEntries
 - Titles are being searched against TMDb database currently, but you're referencing all data with respect to IMDb. Any TMDB title without IMDb ID will land into a lot of issues because of this. Therefore, you need to restrict elasticsearch to only titles with non empty imdbid
+- Add environment variable to accept remote host

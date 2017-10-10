@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express')
 const router = express.Router()
 const mongoConnect = require('../middleware/mongoConnect')
@@ -7,9 +8,11 @@ const Collection = require('../models/collection')
 router.use(mongoConnect)
 
 router.get('/', (req,res) => {
-  return Collection.find({}).sort('-created').limit(10).exec(function(err, docs){
+  const page = (_.isNumber(parseInt(req.query.page)) && parseInt(req.query.page) >= 0) ? parseInt(req.query.page) : 0
+  const perPage = 10
+  return Collection.find({}).sort('-created').skip(page * perPage).limit(perPage).exec(function(err, docs){
     req.db.close()
-    res.render('debug.html', {docs})
+    res.render('debug.html', {docs, page})
   });
 })
 

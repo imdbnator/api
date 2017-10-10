@@ -15,8 +15,10 @@ Todo:
  */
 
 'use strict'
+const path = require('path');
 const express = require('express')
 const compression = require('compression');
+const ejs = require('ejs');
 const api = express()
 const port = process.env.PORT || 8081
 
@@ -25,6 +27,9 @@ process.setMaxListeners(30)
 
 // Global Middleware
 api.use(compression({level: 9}))
+
+// Set config
+api.engine('html', require('ejs').renderFile);
 
 // Define REST Routes
 api.use('/debug', require('./routes/debug'))

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Yay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  </head>
+  <body>
+    <div class="ui container one column grid" style="padding-top: 3em">
+      <div class="row">
+        <div class="column">
+          <div class="ui header">
+            Today's stats
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="ui header">
+            Collections
+          </div>
+          <table class="ui striped table">
+            <thead>
+              <tr>
+                <th>
+                  Info
+                </th>
+                <th>
+                  Entries
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (var i = 0; i < docs.length; i++) { %>
+                <tr class="top aligned">
+                  <td>
+                    ID: <%= docs[i].id %> </br>
+                    Created: <%= docs[i].created %> </br>
+                    Processed: <%= docs[i].processed %> </br>
+                    Type: <%= docs[i].type %> </br>
+                    Count: <%= docs[i].entries.length %> <br />
+                  </td>
+                  <td style="font-size:0.8em;line-height: initial">
+                    <% for (var j = 0; j < docs[i].entries.length && j < 10; j++) { %>
+                      <%= docs[i].entries[j].input.name %> ==>
+                      <% if (docs[i].entries[j].search.found) { %>
+                        <a href="http://imdb.com/title/<%= docs[i].entries[j].search.result.imdbid %>" target="_blank"><%= docs[i].entries[j].search.result.imdbid %></a>
+                      <% } %>
+                      <br />
+                    <% } %>
+                  </td>
+                </tr>
+               <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

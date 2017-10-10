@@ -29,6 +29,7 @@ process.setMaxListeners(30)
 api.use(compression({level: 9}))
 
 // Set config
+api.set('views', __dirname + '/views')
 api.engine('html', require('ejs').renderFile);
 
 // Define REST Routes

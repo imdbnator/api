@@ -10,8 +10,11 @@ router.use(mongoConnect)
 router.get('/', (req,res) => {
   const page = (_.isNumber(parseInt(req.query.page)) && parseInt(req.query.page) >= 0) ? parseInt(req.query.page) : 0
   const perPage = 10
+  // const mongoDb =
   return Collection.find({}).sort('-created').skip(page * perPage).limit(perPage).exec(function(err, docs){
     req.db.close()
+    if (err) return res.send({success: false, message: err.message})
+
     res.render('debug.html', {docs, page})
   });
 })

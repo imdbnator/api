@@ -1,7 +1,7 @@
 const json2csv = require('json2csv')
 const fs = require('fs')
-const entries = require('../samples/populatedCollection').entries
-const fields = ['id', 'imdbid', 'tmdbid', 'title', 'year', 'runtime', 'country', 'genre', 'language', 'rating', 'votes', 'awards', 'cast', 'director', 'plot', 'poster']
+const entries = require('../samples/populatedCollection.json').entries
+const fields = ['id', 'imdbid', 'tmdbid', 'title', 'year', 'runtime', 'country', 'genre', 'language', 'rating', 'votes', 'awards', 'cast', 'director', 'plot', 'budget', 'revenue', 'poster']
 const data = []
 
 for (let i = 0; i < entries.length; i++) {

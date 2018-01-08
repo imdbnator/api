@@ -1,0 +1,62 @@
+version: '3'
+services:
+  web:
+    container_name: imdbnator-api
+    build: .
+    restart: always
+    ports:
+      - "8081:8081"
+    volumes:
+      - .:/root/api
+    depends_on:
+     - mongodb
+    environment:
+      MONGODB_HOST: imdbnator-mongodb:27017
+      ELASTICSEARCH_HOST: imdbnator-elasticsearch:9200
+    networks:
+     - elk
+    command: pm2 start api.js
+  mongodb:
+    container_name: imdbnator-mongodb
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongodb:/data/db
+    networks:
+      - elk
+  elasticsearch:
+    container_name: imdbnator-elasticsearch
+    image: elasticsearch:latest
+    restart: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./data/elastisearch:/usr/share/elasticsearch/data
+    networks:
+      - elk
+  kibana:
+    container_name: imdbnator-kibana
+    image: kibana:latest
+    restart: always
+    ports:
+     - "5601:5601"
+    volumes:
+     - ./data/kibana:/usr/share/kibana/data
+    depends_on:
+     - elasticsearch
+    networks:
+      - elk
+  dump:
+    container_name: imdbnator-dumpper
+    image: saikrishnadeep/imdbnator-dumpper
+    volumes:
+      - ./data/dumpper:/imdbnator-server
+    depends_on:
+      - elasticsearch
+      - logstash
+networks:
+  elk:
+    driver: bridge

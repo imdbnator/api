@@ -17,7 +17,6 @@ RUN \
   tar xvzf imdb.movies.tar.gz && \
   tar xvzf tmdb.movies.tar.gz
 
-RUN ls
 
 WORKDIR $ROOT/scripts
 RUN \
@@ -25,4 +24,5 @@ RUN \
   python parser.py tmdb movies $ROOT/temp/tmdb.movies ./ && \
   python parser.py imdb movies $ROOT/temp/imdb.movies ./
 
+WORKDIR $ROOT
 CMD ["bash"]

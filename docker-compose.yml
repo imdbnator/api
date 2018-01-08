@@ -2,7 +2,9 @@ version: '3'
 services:
   web:
     container_name: imdbnator-api
-    build: .
+    build:
+      context: .
+      dockerfile: docker/api
     tty: true
     restart: always
     ports:
@@ -54,12 +56,16 @@ services:
       - elk
   dump:
     container_name: imdbnator-dumpper
-    image: logstash:latest
+    build:
+      context: .
+      dockerfile: dumpper
+    volumes:
+      - .:/root/dumpper
     depends_on:
       - elasticsearch
     networks:
-      -elk
-    command: bash dump.sh
+      - elk
+    entrypoint: bash ./dump.sh
 networks:
   elk:
     driver: bridge

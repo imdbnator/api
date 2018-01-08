@@ -5,25 +5,25 @@ logstash=`readlink -f logstash`
 
 rm -rf "$temp"
 mkdir "$temp"
-
-echo -e "\n${GREEN}Downloading dumps${NC}\n"
-wget https://nyc3.digitaloceanspaces.com/imdbnator/imdb.movies.tar.gz -P "$temp"
-wget https://nyc3.digitaloceanspaces.com/imdbnator/tmdb.movies.tar.gz -P "$temp"
-
-echo -e "\n${GREEN}Extracting dumps${NC}\n"
-tar xvzf "$temp/imdb.movies.tar.gz" -C "$temp"
-tar xvzf "$temp/tmdb.movies.tar.gz" -C "$temp"
-
-echo -e "\n${GREEN}Validating and Parsing dumps${NC}\n"
-
-cd scripts
-virtualenv env
-source env/bin/activate
-pip install -r requirements.txt
-python parser.py tmdb movies "$temp/tmdb.movies" "$temp"
-python parser.py imdb movies "$temp/imdb.movies" "$temp"
-deactivate
-cd ..
+#
+# echo -e "\n${GREEN}Downloading dumps${NC}\n"
+# wget https://nyc3.digitaloceanspaces.com/imdbnator/imdb.movies.tar.gz -P "$temp"
+# wget https://nyc3.digitaloceanspaces.com/imdbnator/tmdb.movies.tar.gz -P "$temp"
+#
+# echo -e "\n${GREEN}Extracting dumps${NC}\n"
+# tar xvzf "$temp/imdb.movies.tar.gz" -C "$temp"
+# tar xvzf "$temp/tmdb.movies.tar.gz" -C "$temp"
+#
+# echo -e "\n${GREEN}Validating and Parsing dumps${NC}\n"
+#
+# cd scripts
+# virtualenv env
+# source env/bin/activate
+# pip install -r requirements.txt
+# python parser.py tmdb movies "$temp/tmdb.movies" "$temp"
+# python parser.py imdb movies "$temp/imdb.movies" "$temp"
+# deactivate
+# cd ..
 
 echo -e "\n${GREEN}Dumping TMDb movies${NC}\n"
 # https://stackoverflow.com/questions/15171622/mongoimport-of-json-file

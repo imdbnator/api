@@ -25,4 +25,5 @@ RUN \
   python parser.py imdb movies $ROOT/temp/imdb.movies ./
 
 WORKDIR $ROOT
+RUN ls
 CMD ["bash"]

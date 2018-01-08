@@ -52,6 +52,15 @@ services:
      - elasticsearch
     networks:
       - elk
+  dump:
+    container_name: imdbnator-dumpper
+    image: logstash:latest
+    depends_on:
+      - elasticsearch
+      - logstash
+    networks:
+      -elk
+    command: bash dump.sh
 networks:
   elk:
     driver: bridge

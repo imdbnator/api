@@ -17,7 +17,7 @@ services:
       ELASTICSEARCH_HOST: imdbnator-elasticsearch:9200
     networks:
      - elk
-    command: pm2 start api.js
+    command: npm install && pm2 start api.js && pm2 logs
   mongodb:
     container_name: imdbnator-mongodb
     image: mongo:latest

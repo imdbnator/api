@@ -49,14 +49,6 @@ services:
      - elasticsearch
     networks:
       - elk
-  dump:
-    container_name: imdbnator-dumpper
-    image: saikrishnadeep/imdbnator-dumpper
-    volumes:
-      - ./data/dumpper:/imdbnator-server
-    depends_on:
-      - elasticsearch
-      - logstash
 networks:
   elk:
     driver: bridge

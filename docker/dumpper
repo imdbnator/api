@@ -6,7 +6,7 @@ COPY . .
 # Install Python.
 RUN \
   apt-get update && \
-  apt-get install -y --no-install-recommends python python-dev python-pip python-virtualenv && \
+  apt-get install -y --no-install-recommends python python-dev python-pip python-virtualenv python-setuptools && \
   rm -rf /var/lib/apt/lists/*
 
 WORKDIR $ROOT/temp
@@ -17,9 +17,11 @@ RUN \
   tar xvzf imdb.movies.tar.gz && \
   tar xvzf tmdb.movies.tar.gz
 
+RUN ls
+
 WORKDIR $ROOT/scripts
 RUN \
-  pip install -r requirements.txt &&\
+  pip install -r requirements.txt && \
   python parser.py tmdb movies $ROOT/temp/tmdb.movies ./ && \
   python parser.py imdb movies $ROOT/temp/imdb.movies ./
 

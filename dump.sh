@@ -45,7 +45,7 @@ regex1="s#{DUMP_LOCATION}#$temp/tmdb.movies.titles#g"
 regex2="s#{INDEX}#$index#g"
 regex3="s#{TYPE}#$type#g"
 sed -i -e "$regex1" -e "$regex2" -e "$regex3" "$config1"
-curl -XDELETE "http://localhost:9200/$index"
+curl -XDELETE "http://imdbnator-elasticsearch:9200/$index"
 
 config2="$temp/imdb.movies.titles.cfg"
 index="imdb"
@@ -56,7 +56,7 @@ regex1="s#{DUMP_LOCATION}#$temp/imdb.movies.titles#g"
 regex2="s#{INDEX}#$index#g"
 regex3="s#{TYPE}#$type#g"
 sed -i -e "$regex1" -e "$regex2" -e "$regex3" "$config2"
-curl -XDELETE "http://localhost:9200/$index"
+curl -XDELETE "http://imdbnator-elasticsearch:9200/$index"
 
 # End
 echo -e "\n\n${GREEN}All done! Ready for indexing.${NC} Please run the following for indexing.\n"

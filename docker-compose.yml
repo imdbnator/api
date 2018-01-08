@@ -57,7 +57,6 @@ services:
     image: logstash:latest
     depends_on:
       - elasticsearch
-      - logstash
     networks:
       -elk
     command: bash dump.sh

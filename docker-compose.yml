@@ -61,7 +61,9 @@ services:
       dockerfile: docker/dumpper
     volumes:
       - .:/root/dumpper
+    command: bash dump.sh
     depends_on:
+      - mongodb
       - elasticsearch
     networks:
       - elk

@@ -9,6 +9,7 @@ services:
       - "8081:8081"
     volumes:
       - .:/root/api
+      - /root/api/node_modules
     depends_on:
      - mongodb
      - elasticsearch
@@ -17,7 +18,7 @@ services:
       ELASTICSEARCH_HOST: imdbnator-elasticsearch:9200
     networks:
      - elk
-    command: bash -c "npm install && pm2 start api.js && pm2 logs"
+    command: bash -c "pm2 start api.js && pm2 logs"
   mongodb:
     container_name: imdbnator-mongodb
     image: mongo:latest

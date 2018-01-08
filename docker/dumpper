@@ -1,10 +1,25 @@
 FROM logstash:latest
-WORKDIR /root/dumpper
+ENV ROOT=/root/dumpper
+WORKDIR $ROOT
 COPY . .
 
 # Install Python.
 RUN \
+  apt-get update && \
   apt-get install -y   python python-dev python-pip python-virtualenv && \
   rm -rf /var/lib/apt/lists/*
+
+WORKDIR $ROOT/temp
+RUN \
+  mkdir temp && \
+  wget https://nyc3.digitaloceanspaces.com/imdbnator/imdb.movies.tar.gz && \
+  wget https://nyc3.digitaloceanspaces.com/imdbnator/tmdb.movies.tar.gz && \
+  tar xvzf imdb.movies.tar.gz && \
+  tar xvzf tmdb.movies.tar.gz
+
+RUN \
+  pip install -r $ROOT/scripts/requirements.txt &&\
+  python parser.py tmdb movies $ROOT/temp/tmdb.movies ./ && \
+  python parser.py imdb movies $ROOT/temp/imdb.movies ./
 
 CMD ["bash"]

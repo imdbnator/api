@@ -58,14 +58,13 @@ services:
     container_name: imdbnator-dumpper
     build:
       context: .
-      dockerfile: dumpper
+      dockerfile: docker/dumpper
     volumes:
       - .:/root/dumpper
     depends_on:
       - elasticsearch
     networks:
       - elk
-    entrypoint: bash ./dump.sh
 networks:
   elk:
     driver: bridge

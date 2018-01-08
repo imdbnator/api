@@ -60,5 +60,5 @@ curl -XDELETE "http://imdbnator-elasticsearch:9200/$index"
 
 # End
 echo -e "\n\n${GREEN}All done! Ready for indexing.${NC} Please run the following for indexing.\n"
-echo "/usr/share/logstash/bin/logstash -f $config1"
-echo "/usr/share/logstash/bin/logstash -f $config2"
+/usr/share/logstash/bin/logstash -f $config1
+/usr/share/logstash/bin/logstash -f $config2

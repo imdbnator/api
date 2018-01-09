@@ -21,8 +21,8 @@ RUN \
 WORKDIR $ROOT/scripts
 RUN \
   pip install -r requirements.txt && \
-  python parser.py tmdb movies $ROOT/temp/tmdb.movies ./ && \
-  python parser.py imdb movies $ROOT/temp/imdb.movies ./
+  python parser.py tmdb movies $ROOT/temp/tmdb.movies $ROOT/temp && \
+  python parser.py imdb movies $ROOT/temp/imdb.movies $ROOT/temp
 
 WORKDIR $ROOT
 RUN ls

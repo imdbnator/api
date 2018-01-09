@@ -5,7 +5,7 @@
 const elasticsearch = require('elasticsearch')
 const isEmpty = require('lodash.isempty')
 const includes = require('lodash.includes')
-
+const host = process.env.ELASTICSEARCH_HOST || 'localhost:9200'
 
 const formatElasticResponse = require('./formatElasticResponse')
 
@@ -16,7 +16,7 @@ class ElasticSearch {
     this.mode = (!isEmpty(props.mode) && includes(['prefix', 'match'], props.mode)) ? props.mode : 'prefix'
 
     this._esClient = new elasticsearch.Client({
-      host: 'localhost:9200',
+      host,
       log: {
         type: 'stdio',
         levels: [],

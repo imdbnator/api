@@ -36,7 +36,7 @@ mongoimport --db imdbnator --collection imdb_movies --file "$temp/imdb.movies.sa
 echo -e "\n${GREEN}Deleting Indices${NC}\n"
 base_config=`readlink -f logstash.cfg`
 
-config1="$temp/tmdb.movies.titles.cfg"
+config1="tmdb.movies.titles.cfg"
 index="tmdb"
 type="movie"
 
@@ -47,7 +47,7 @@ regex3="s#{TYPE}#$type#g"
 sed -i -e "$regex1" -e "$regex2" -e "$regex3" "$config1"
 curl -XDELETE "http://imdbnator-elasticsearch:9200/$index"
 
-config2="$temp/imdb.movies.titles.cfg"
+config2="imdb.movies.titles.cfg"
 index="imdb"
 type="movie"
 

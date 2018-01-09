@@ -61,6 +61,7 @@ services:
       dockerfile: docker/dumpper
     volumes:
       - .:/root/dumpper
+      - /root/dumpper/temp
     command: bash dump.sh
     depends_on:
       - mongodb

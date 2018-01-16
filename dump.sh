@@ -3,8 +3,9 @@ NC="\033[0m"
 temp=`readlink -f temp`
 logstash=`readlink -f logstash`
 
-rm -rf "$temp"
-mkdir "$temp"
+ls "$temp"
+#rm -rf "$temp"
+#mkdir "$temp"
 #
 # echo -e "\n${GREEN}Downloading dumps${NC}\n"
 # wget https://nyc3.digitaloceanspaces.com/imdbnator/imdb.movies.tar.gz -P "$temp"
@@ -33,9 +34,10 @@ echo -e "\n${GREEN}Dumping IMDb movies${NC}\n"
 # https://stackoverflow.com/questions/15171622/mongoimport-of-json-file
 mongoimport --db imdbnator --collection imdb_movies --file "$temp/imdb.movies.sanitized" --drop
 
-echo -e "\n${GREEN}Deleting Indices${NC}\n"
+
 base_config=`readlink -f logstash.cfg`
 
+echo -e "\n${GREEN}Creating Logstash configs.${NC}\n"
 config1="tmdb.movies.titles.cfg"
 index="tmdb"
 type="movie"
@@ -59,6 +61,6 @@ sed -i -e "$regex1" -e "$regex2" -e "$regex3" "$config2"
 curl -XDELETE "http://imdbnator-elasticsearch:9200/$index"
 
 # End
-echo -e "\n\n${GREEN}All done! Ready for indexing.${NC} Please run the following for indexing.\n"
-/usr/share/logstash/bin/logstash -f $config1
-/usr/share/logstash/bin/logstash -f $config2
+echo -e "\n\n${GREEN}Dumping in progress... Go to http://localhost:9200/_cat/indices to check data is fully dumped.${NC}\n"
+nohup /usr/share/logstash/bin/logstash -f $config2
+nohup /usr/share/logstash/bin/logstash -f $config1

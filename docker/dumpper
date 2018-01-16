@@ -1,17 +1,18 @@
 FROM logstash:latest
-ENV ROOT=/root/dumpper
+ENV ROOT=/root/api
 WORKDIR $ROOT
 COPY . .
 
 # Install Python.
 RUN \
+  echo -e "\n\e[32apt-get Update.\033[0m\n" && \
   apt-get update && \
   apt-get install -y --no-install-recommends python python-dev python-pip python-virtualenv python-setuptools && \
   rm -rf /var/lib/apt/lists/*
 
 WORKDIR $ROOT/temp
 RUN \
-  mkdir temp && \
+  echo -e "\n\e[32mDownloading dumps.\033[0m\n" && \
   wget https://nyc3.digitaloceanspaces.com/imdbnator/imdb.movies.tar.gz && \
   wget https://nyc3.digitaloceanspaces.com/imdbnator/tmdb.movies.tar.gz && \
   tar xvzf imdb.movies.tar.gz && \
@@ -20,6 +21,7 @@ RUN \
 
 WORKDIR $ROOT/scripts
 RUN \
+  echo -e "\n\e[32mInstalling python.\033[0m\n" && \
   pip install -r requirements.txt && \
   python parser.py tmdb movies $ROOT/temp/tmdb.movies $ROOT/temp && \
   python parser.py imdb movies $ROOT/temp/imdb.movies $ROOT/temp

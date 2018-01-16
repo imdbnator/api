@@ -60,8 +60,8 @@ services:
       context: .
       dockerfile: docker/dumpper
     volumes:
-      - .:/root/dumpper
-      - /root/dumpper/temp
+      - .:/root/api
+      - /root/api/temp
     command: bash dump.sh
     depends_on:
       - mongodb

@@ -63,7 +63,7 @@ services:
       - .:/root/api
       - /root/api/temp
       - ./configs/logstash:/usr/share/logstash/config
-    command: bash dump.sh
+    command: ["./wait-for-it.sh", "elasticsearch:9200", "--", "bash", "dump.sh"]
     depends_on:
       - mongodb
       - elasticsearch

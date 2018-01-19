@@ -4,30 +4,36 @@ ENV ROOT=/root/api
 WORKDIR $ROOT
 COPY . .
 
-# Install Python.
+# Installing python
 RUN \
-  echo -e "\n\e[32mapt-get Update.\033[0m\n" && \
+  echo -e "\n\e[32myum Update.\033[0m\n" && \
   yum update -y && \
   yum install -y python && \
   curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
   python get-pip.py && \
   yum install -y wget
 
-
-WORKDIR $ROOT/temp
+# Install mongoimport
 RUN \
-  echo -e "\n\e[32mDownloading dumps.\033[0m\n" && \
-  wget https://nyc3.digitaloceanspaces.com/imdbnator/imdb.movies.tar.gz && \
-  wget https://nyc3.digitaloceanspaces.com/imdbnator/tmdb.movies.tar.gz && \
+  echo -e "Installing mongoimport" && \
+  echo -e "[mongodb-org-3.6]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/3.6/x86_64/\ngpgcheck=1\nenabled=1\ngpgkey=https://www.mongodb.org/static/pgp/server-3.6.asc" >> /etc/yum.repos.d/mongodb-org-3.6.repo && \
+  yum install -y mongodb-org-tools
+
+# Download & Extract dumps
+WORKDIR $ROOT/temp
+ADD https://nyc3.digitaloceanspaces.com/imdbnator/imdb.movies.tar.gz .
+ADD https://nyc3.digitaloceanspaces.com/imdbnator/tmdb.movies.tar.gz .
+ADD https://nyc3.digitaloceanspaces.com/imdbnator/lists.mongo.tar.gz .
+RUN \
+  echo -e "\n\e[32mExtracting dumps.\033[0m\n" && \
   tar xvzf imdb.movies.tar.gz && \
   tar xvzf tmdb.movies.tar.gz
 
-
+# Install dependencies and Parse dumps
 WORKDIR $ROOT/scripts
 RUN \
   echo -e "\n\e[32mInstalling python.\033[0m\n" && \
   pip install -r requirements.txt
-
 RUN \
   echo -e "\n\e[32mParsing dumps.\033[0m\n" && \
   python parser.py tmdb movies $ROOT/temp/tmdb.movies $ROOT/temp && \

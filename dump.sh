@@ -15,4 +15,4 @@ curl -XDELETE "http://imdbnator-elasticsearch:9200/tmdb"
 
 # Import IMDB and TMDB dumps into elasticsearch using Logstash
 echo -e "\n\n${GREEN}Dumping in progress. Go to http://localhost:9200/_cat/indices?v to check if data is fully dumped.${NC}\n"
-logstash
+logstash --log.level=fatal

@@ -1,3 +1,8 @@
+# https://discuss.elastic.co/t/elasticsearch-unreachable-error-in-logstash/75157/8
+# Logging bug fix
+xpack.monitoring.enabled: false
+#xpack.monitoring.elasticsearch.url: http://localhost:9200
+
 # Settings file in YAML
 #
 # Settings can be specified either in hierarchical form, e.g.:

@@ -16,6 +16,7 @@ services:
      - mongodb
      - elasticsearch
     environment:
+      API_PORT: 8081
       MONGODB_HOST: imdbnator-mongodb:27017
       ELASTICSEARCH_HOST: imdbnator-elasticsearch:9200
     networks:

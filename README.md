@@ -42,7 +42,7 @@ Once, you have the data dumpped. You can start the web service using.
 
 - `$ docker-compose up web`
 
-The default listening port is `8081`. Therefore, if you see a success message at `http://localhost:8081/debug/echo/foo`. Then you're good to go and its all setup!
+The default listening port is `8081`. Therefore, if you see a success message at [`http://localhost:8081/debug/echo/foo`](http://localhost:8081/debug/echo/foo). Then you're good to go and its all setup!
 
 ## Notes
 

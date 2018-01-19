@@ -1,6 +1,6 @@
 - pipeline.id: imdb-pipeline
-  path.config: "/etc/path/to/p1.config"
+  path.config: "/root/api/imdb.movies.titles.cfg"
   pipeline.workers: 3
 - pipeline.id: tmdb-pipeline
-  path.config: "/etc/different/path/p2.cfg"
+  path.config: "/root/api/tmdb.movies.titles.cfg"
   queue.type: persisted

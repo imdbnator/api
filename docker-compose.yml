@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  api:
     container_name: imdbnator-api
     build:
       context: .
@@ -58,7 +58,7 @@ services:
     container_name: imdbnator-dumpper
     build:
       context: .
-      dockerfile: docker/dumpper
+      dockerfile: docker/dump
     volumes:
       - .:/root/api
       - /root/api/temp

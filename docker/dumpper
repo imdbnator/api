@@ -1,14 +1,18 @@
-FROM logstash:latest
+FROM docker.elastic.co/logstash/logstash:6.1.2
+USER root
 ENV ROOT=/root/api
 WORKDIR $ROOT
 COPY . .
 
 # Install Python.
 RUN \
-  echo -e "\n\e[32apt-get Update.\033[0m\n" && \
-  apt-get update && \
-  apt-get install -y --no-install-recommends python python-dev python-pip python-virtualenv python-setuptools && \
-  rm -rf /var/lib/apt/lists/*
+  echo -e "\n\e[32mapt-get Update.\033[0m\n" && \
+  yum update -y && \
+  yum install -y python && \
+  curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
+  python get-pip.py && \
+  yum install -y wget
+
 
 WORKDIR $ROOT/temp
 RUN \
@@ -22,7 +26,10 @@ RUN \
 WORKDIR $ROOT/scripts
 RUN \
   echo -e "\n\e[32mInstalling python.\033[0m\n" && \
-  pip install -r requirements.txt && \
+  pip install -r requirements.txt
+
+RUN \
+  echo -e "\n\e[32mParsing dumps.\033[0m\n" && \
   python parser.py tmdb movies $ROOT/temp/tmdb.movies $ROOT/temp && \
   python parser.py imdb movies $ROOT/temp/imdb.movies $ROOT/temp
 

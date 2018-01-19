@@ -62,6 +62,7 @@ services:
     volumes:
       - .:/root/api
       - /root/api/temp
+      - ./configs/logstash:/usr/share/logstash/config
     command: bash dump.sh
     depends_on:
       - mongodb

@@ -4,14 +4,12 @@ ENV ROOT=/root/api
 WORKDIR $ROOT
 COPY . .
 
-# Installing python
+# Installing python-pip
 RUN \
   echo -e "\n\e[32myum Update.\033[0m\n" && \
-  yum update -y && \
-  yum install -y python && \
   curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
-  python get-pip.py && \
-  yum install -y wget
+  python get-pip.py
+
 
 # Install mongoimport
 RUN \

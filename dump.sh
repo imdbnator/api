@@ -4,9 +4,9 @@ NC="\033[0m"
 # Import IMDb and TMDb movie dumps into mongodb
 # https://stackoverflow.com/questions/15171622/mongoimport-of-json-file
 echo -e "\n${GREEN}Dumping TMDb movies${NC}\n"
-mongoimport --db imdbnator --collection tmdb_movies --file "temp/tmdb.movies.sanitized" --drop
+mongoimport --host imdbnator-mongodb:27017 --db imdbnator --collection tmdb_movies --file "temp/tmdb.movies.sanitized" --drop
 echo -e "\n${GREEN}Dumping IMDb movies${NC}\n"
-mongoimport --db imdbnator --collection imdb_movies --file "temp/imdb.movies.sanitized" --drop
+mongoimport --host imdbnator-mongodb:27017 --db imdbnator --collection imdb_movies --file "temp/imdb.movies.sanitized" --drop
 
 # Delete existing elasticsearch indices
 echo -e "\n${GREEN}Deleting Indices.${NC}\n"

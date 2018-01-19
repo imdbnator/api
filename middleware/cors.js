@@ -1,4 +1,4 @@
-const remote = process.env.REMOTE || '*'
+const remote = require('../configs').web
 
 function cors (req, res, next) {
   res.header('Access-Control-Allow-Origin', remote)

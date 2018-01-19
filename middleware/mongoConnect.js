@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const host = process.env.MONGODB_HOST || 'localhost:27017'
+const host = require('../configs').mongodb
 
 function mongoConnect (req, res, next) {
   mongoose.Promise = global.Promise

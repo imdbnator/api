@@ -9,7 +9,7 @@ Bugs:
 const MongoClient = require('mongodb').MongoClient
 const Promise = require('bluebird')
 const _ = require('lodash');
-const host = process.env.MONGODB_HOST || 'localhost:27017'
+const host = require('../configs').mongodb
 
 // Configs
 const config = require('../configs/mongo.json')

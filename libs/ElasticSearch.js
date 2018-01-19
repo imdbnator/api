@@ -5,7 +5,7 @@
 const elasticsearch = require('elasticsearch')
 const isEmpty = require('lodash.isempty')
 const includes = require('lodash.includes')
-const host = process.env.ELASTICSEARCH_HOST || 'localhost:9200'
+const host =require('../configs').elasticsearch
 
 const formatElasticResponse = require('./formatElasticResponse')
 

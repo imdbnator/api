@@ -20,10 +20,12 @@ const express = require('express')
 const compression = require('compression');
 const ejs = require('ejs');
 const api = express()
-const port = process.env.PORT || 8081
+const config = require('./configs');
+const port = config.port
+const maxListeners = config.maxListeners
 
 // Increase max event listeners.
-process.setMaxListeners(30)
+process.setMaxListeners(maxListeners)
 
 // Global Middleware
 api.use(compression({level: 9}))
@@ -39,7 +41,12 @@ api.use('/user', require('./routes/user'))
 api.use('/process', require('./routes/process'))
 
 // Start REST API on specified port
-const server = api.listen(port, function () { console.log('Server listening on port: %s', port) })
+const server = api.listen(port, function () {
+  console.log(`Server listening to ${config.web} on ${config.port}.
+===============
+${JSON.stringify(config)}
+===============`)
+})
 
 // Start Daemon
 const startDaemon = require('./daemon')

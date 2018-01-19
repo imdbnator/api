@@ -5,7 +5,7 @@ const Promise = require('bluebird');
 const isEmpty = require('lodash.isempty')
 const isNumber = require('lodash.isnumber')
 const moment = require('moment');
-const port = process.env.PORT || 8081
+const port = require('../configs').port
 
 // My modules
 const ElasticSearch = require('../libs/ElasticSearch')

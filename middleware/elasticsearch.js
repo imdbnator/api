@@ -1,6 +1,6 @@
 const elasticsearch = require('elasticsearch');
+const host = require('../configs').elasticsearch
 const config = require('../configs/elastic');
-const host = process.env.ELASTICSEARCH_HOST || 'localhost:9200'
 
 function esClient(config, req,res,next){
 

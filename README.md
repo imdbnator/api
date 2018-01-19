@@ -48,8 +48,13 @@ The default listening port is `8081`. Therefore, if you see a success message at
 
 - The default API endpoint is [`http://localhost:8081`](http://localhost:8081).
 - The default elasticsearch endpoint is [`http://localhost:9200`](http://localhost:9200)
-- To check if the API is communicating with elasticsearch you can try a sample query like: [`http://localhost:8081/process/search?input=Batman vs Superman&mode=match&index=imdb&type=movie`](http://localhost:8081/process/search?input=Batman vs Superman&mode=match&index=imdb&type=movie)
+- To check if the API is communicating with elasticsearch you can try a sample query like: [`http://localhost:8081/process/search?input=Batman vs Superman&mode=match&index=imdb&type=movie`](http://localhost:8081/process/search?input=Batman%20vs%20Superman&mode=match&index=imdb&type=movie)
 - File changes made in the host `imdbnator-api` directory get mirrored into the containers.
-- The EKL and MongoDB data from the containers gets persisted even after the containers are shutdown or deleted at `./data` folder.
 - You can build a container for a service using `docker-compose build dump`
 - To interact and work, glimpse inside a built container, you can use `docker run -it #CONTAINER_ID /bin/bash`
+- The EKL and MongoDB data from the containers gets persisted even after the containers are shutdown or deleted at `./data` folder.
+- The EKL config files are located at `./configs` to limit properties such as memory and processor usage by the EKL stack
+
+## Resources
+
+- [Docker resource allocation](https://docs.docker.com/engine/admin/resource_constraints/)

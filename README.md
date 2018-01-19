@@ -24,7 +24,7 @@ If you wish to run `docker` and `docker-compose` on a windows machine you will n
 
 - `$ git clone https://github.com/saikrishnadeep/imdbnator-api.git`
 - `$ cd imdbnator-api`
-- `docker-compose up dump`
+- `$ docker-compose up dump`
 
 This will setup all the basic stack requirements and dump the entire imdb and tmdb movie databases for local development. You can have a look at the Dockerfile [`docker/dump`](https://github.com/saikrishnadeep/imdbnator-api/blob/master/docker/dump) and [`docker-compose.yml`](https://github.com/saikrishnadeep/imdbnator-api/blob/master/docker-compose.yml) to see the exact procedure.
 
@@ -32,7 +32,7 @@ The installation will take quite a long while as all the services EKL, MongoDB, 
 
 > Dumping in progress. Go to http://localhost:9200/_cat/indices?v to check if data is fully dumped.
 
-If you visit [`http://localhost:9200/_cat/indices?v`](http://localhost:9200/_cat/indices?v) you should see indices `imdb` and `tmdb` with the number of docs currently indexed. Depending on your system resources, it might take around 10 minutes or less to index the entire dump. If you notice that the number of docs arn't changing anymore, then it indicates that the data has been dumpped. As of this writing, you should close to `~300K` docs in `imdb` index and `~250K` docs in the `tmdb` index.
+If you visit [`http://localhost:9200/_cat/indices?v`](http://localhost:9200/_cat/indices?v) you should see indices `IMDb` and `TMDb` with the number of docs currently indexed. Depending on your system resources, it might take around 10 minutes or less to index the entire dump. If you notice that the number of docs arn't changing anymore, then it indicates that the data has been dumpped. As of this writing, you should close to `~300K` docs in `imdb` index and `~250K` docs in the `tmdb` index.
 
 You can then press `Ctrl+C` and exit.
 
@@ -40,7 +40,7 @@ You can then press `Ctrl+C` and exit.
 
 Once, you have the data dumpped. You can start the web service using.
 
--`$ docker-compose up web`
+- `$ docker-compose up web`
 
 The default listening port is `8081`. Therefore, if you see a success message at `http://localhost:8081/debug/echo/foo`. Then you're good to go and its all setup!
 

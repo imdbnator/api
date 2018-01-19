@@ -9,6 +9,7 @@ Bugs:
 const MongoClient = require('mongodb').MongoClient
 const Promise = require('bluebird')
 const _ = require('lodash');
+const host = process.env.MONGODB_HOST || 'localhost:27017'
 
 // Configs
 const config = require('../configs/mongo.json')
@@ -28,7 +29,7 @@ function populateEntries (oldEntries, sources, done) {
     const { modified, search, ignore } = entries[i]
     if (!search.found && !modified) continue
     if (ignore) continue
-    
+
     const imdbid = (modified) ? modified : search.result.imdbid
 
     if (imdbid in imdb2entry) imdb2entry[imdbid].push(i)
@@ -42,7 +43,7 @@ function populateEntries (oldEntries, sources, done) {
 
   // Connect to monge
   return new Promise((mainResolve, mainReject) => {
-    return MongoClient.connect('mongodb://localhost/imdbnator', {promiseLibrary: Promise})
+    return MongoClient.connect(`mongodb://${host}/imdbnator`, {promiseLibrary: Promise})
     .then((db) => {
       Promise.map(sources, (source, i) => {
         return new Promise((mapperResolve, mapperReject) => {

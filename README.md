@@ -22,9 +22,9 @@ If you wish to run `docker` and `docker-compose` on a windows machine you will n
 
 ## Installation
 
-- `$ git clone https://github.com/saikrishnadeep/imdbnator-api.git`
-- `$ cd imdbnator-api`
-- `$ docker-compose up dump`
+- `git clone https://github.com/saikrishnadeep/imdbnator-api.git`
+- `cd imdbnator-api`
+- `docker-compose up dump`
 
 This will setup all the basic stack requirements and dump the entire imdb and tmdb movie databases for local development. You can have a look at the Dockerfile [`docker/dump`](https://github.com/saikrishnadeep/imdbnator-api/blob/master/docker/dump) and [`docker-compose.yml`](https://github.com/saikrishnadeep/imdbnator-api/blob/master/docker-compose.yml) to see the exact procedure.
 
@@ -32,7 +32,7 @@ The installation will take quite a long while as all the services EKL, MongoDB, 
 
 > Dumping in progress. Go to http://localhost:9200/_cat/indices?v to check if data is fully dumped.
 
-If you visit [`http://localhost:9200/_cat/indices?v`](http://localhost:9200/_cat/indices?v) you should see indices `IMDb` and `TMDb` with the number of docs currently indexed. Depending on your system resources, it might take around 10 minutes or less to index the entire dump. If you notice that the number of docs arn't changing anymore, then it indicates that the data has been dumpped. As of this writing, you should close to `~300K` docs in `imdb` index and `~250K` docs in the `tmdb` index.
+If you visit [`http://localhost:9200/_cat/indices?v`](http://localhost:9200/_cat/indices?v) you should see indices `IMDb` and `TMDb` with the number of docs currently indexed. Depending on your system resources, it might take around 10 minutes or less to index the entire dump. If you notice that the number of docs arn't changing anymore, then it indicates that the data has been dumpped. As of this writing, you should close to `260,825` docs in `imdb` index and `349,306` docs in the `tmdb` index.
 
 You can then press `Ctrl+C` and exit.
 
@@ -40,7 +40,7 @@ You can then press `Ctrl+C` and exit.
 
 Once, you have the data dumpped. You can start the web service using.
 
-- `$ docker-compose up web`
+- `docker-compose up api`
 
 The default listening port is `8081`. Therefore, if you see a success message at [`http://localhost:8081/debug/echo/foo`](http://localhost:8081/debug/echo/foo). Then you're good to go and its all setup!
 
@@ -48,6 +48,7 @@ The default listening port is `8081`. Therefore, if you see a success message at
 
 - The default API endpoint is [`http://localhost:8081`](http://localhost:8081).
 - The default elasticsearch endpoint is [`http://localhost:9200`](http://localhost:9200)
+- The default IMDb index end point is [`http://localhost:9200/imdb/_search?pretty=true&q=*:*`](http://localhost:9200/imdb/_search?pretty=true&q=*:*)
 - To check if the API is communicating with elasticsearch you can try a sample query like: [`http://localhost:8081/process/search?input=Batman vs Superman&mode=match&index=imdb&type=movie`](http://localhost:8081/process/search?input=Batman%20vs%20Superman&mode=match&index=imdb&type=movie)
 - File changes made in the host `imdbnator-api` directory get mirrored into the containers.
 - You can build a container for a service using `docker-compose build dump`

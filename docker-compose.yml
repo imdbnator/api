@@ -41,6 +41,8 @@ services:
       - "9300:9300"
     volumes:
       - ./data/elastisearch:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
     networks:
       - elk
   kibana:

@@ -5,5 +5,5 @@ idna==2.6
 pip==9.0.1
 requests==2.18.4
 setuptools==36.5.0
-urllib3==1.22
+urllib3==1.26.5
 wheel==0.30.0

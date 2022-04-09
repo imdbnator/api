@@ -26,7 +26,7 @@
     "lodash.isnumber": "^3.0.3",
     "md5": "^2.2.1",
     "minimist": "^1.2.0",
-    "moment": "^2.18.1",
+    "moment": "^2.29.2",
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.9",
     "mongoose-unique-validator": "^1.0.5",
